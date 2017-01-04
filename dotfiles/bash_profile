@@ -1,0 +1,56 @@
+if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+fi
+
+source /usr/local/share/chruby/chruby.sh
+source /usr/local/share/chruby/auto.sh
+
+# NAME_COLOR='\[\e[38;5;69m\]'
+# PATH_COLOR='\[\e[38;5;199m\]'
+# RESET_COLOR='\[\e[38;5;244m\]'
+# GIT_COLOR='\[\e[01;31m\]'
+
+GIT_PS1_SHOWDIRTYSTATE="true"
+PS1='\[\e[38;5;199m\]\u \[\e[38;5;69m\]\w$(__git_ps1 " \[\e[01;31m\](%s)\[\033[0m\]") 🐾 \[\033[0m\] '
+
+export INPUTRC="${HOME}/.inputrc"
+
+shopt -s checkwinsize
+shopt -s histappend
+export HISTSIZE=999999999
+export HISTCONTROL=ignorespace,erasedups
+export PROMPT_COMMAND='history -a'
+export GOPATH=$HOME
+export PATH=$GOPATH/bin:$PATH
+export LESS=' -R '
+export BROWSER='open'
+
+alias wget='wget -c'
+alias grep='grep --color'
+alias egrep='egrep --color'
+alias cdiff='colordiff -u'
+
+alias ls='ls -G'
+alias rm='rm -i'
+alias mv='mv -i'
+alias cp='cp -i'
+
+alias rs='rsync -vrL --partial --progress'
+
+alias g='git '
+alias name='git config --local user.name Gabi Stefanini'
+alias personal='git config --local user.email lastgabs@users.noreply.github.com'
+alias shopify='git config --local user.email gabi@shopify.com'
+
+alias rbtest='bundle exec ruby -w -Itest'
+alias rstest='bundle exec ruby -Ilib:test -w'
+alias bivendor='bundle install --path vendor/bundle'
+
+alias b="bundle"
+alias bi="b install"
+alias bu="b update"
+alias be="b exec"
+
+function title {
+  printf "\033]0;%s\007" "$1"
+}

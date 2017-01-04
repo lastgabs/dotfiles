@@ -1,0 +1,34 @@
+[user]
+  name = Gabi Stefanini
+  useConfigOnly = true
+[push]
+  default = simple
+[core]
+  excludesfile = ~/.gitignore
+[alias]
+  br = branch
+  co = checkout
+  c = commit
+  ca = commit --amend
+  d = diff
+  dm = diff master
+  dump = cat-file -p
+  hist = log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+  ps = push
+  pl = pull
+  rbi = rebase —-interactive master
+  rbm = rebase master
+  rba = rebase --abort
+  rbc = rebase --continue
+  rbi = rebase --ignore
+  rh = reset --hard
+  st = status
+  sp = stash pop
+  ss = stash
+  type = cat-file -t
+[grep]
+  lineNumber = true
+[pull]
+  rebase = true
+[credential]
+  helper = osxkeychain

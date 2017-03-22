@@ -8,7 +8,6 @@ brew 'bash-completion'
 brew 'chruby'
 brew 'git'
 brew 'heroku-toolbelt'
-brew 'keybase'
 brew 'postgresql', service_restart: true
 brew 'ruby-install'
 cask 'alfred'

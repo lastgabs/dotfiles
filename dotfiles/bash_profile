@@ -9,9 +9,16 @@ source /usr/local/share/chruby/auto.sh
 # PATH_COLOR='\[\e[38;5;199m\]'
 # RESET_COLOR='\[\e[38;5;244m\]'
 # GIT_COLOR='\[\e[01;31m\]'
-
 GIT_PS1_SHOWDIRTYSTATE="true"
-PS1='\[\e[38;5;199m\]\u \[\e[38;5;69m\]\w$(__git_ps1 " \[\e[01;31m\](%s)\[\033[0m\]") 🐾 \[\033[0m\] '
+export PROMPT_DIRTRIM=2
+# OLD PROMPT THAT DIDN'T WORK
+PS1='\[\e[38;5;199m\]\u \[\e[38;5;69m\]\w$(__git_ps1 " \[\e[01;31m\](%s)\[\033[0m\]")\e[m 🐾 '
+
+# NAMECOLOR='\e[38;5;199m'
+# DIRCOLOR='\e[38;5;69m'
+# GITCOLOR='\e[01;31m'
+# ENDCOLOR='\e[0m'
+# PS1="\[$NAMECOLOR\]\u \[$DIRCOLOR\]\w$(__git_ps1 " \[$GITCOLOR\](%s)")\[$ENDCOLOR\] 🐾 "
 
 export INPUTRC="${HOME}/.inputrc"
 
@@ -24,6 +31,8 @@ export GOPATH=$HOME
 export PATH=$GOPATH/bin:$PATH
 export LESS=' -R '
 export BROWSER='open'
+export BUNDLER_EDITOR='atom'
+export BAT_THEME="GitHub"
 
 alias wget='wget -c'
 alias grep='grep --color'
@@ -38,7 +47,6 @@ alias cp='cp -i'
 alias rs='rsync -vrL --partial --progress'
 
 alias g='git '
-alias name='git config --local user.name Gabi Stefanini'
 alias personal='git config --local user.email lastgabs@users.noreply.github.com'
 alias shopify='git config --local user.email gabi@shopify.com'
 
@@ -51,8 +59,17 @@ alias bi="b install"
 alias bu="b update"
 alias be="b exec"
 
+# "$@" passes arguments
+function schema() {
+  sed -i 's/CHARSET=utf8mb4"/CHARSET=utf8mb4 COLLATE=utf8mb4_bin"/g' db/schema.rb
+}
+
 function title {
   printf "\033]0;%s\007" "$1"
+}
+
+rebasecity() {
+  git fetch origin master && git checkout "$@" && git rebase origin/master && git push origin +"$@";
 }
 
 complete -o bashdefault -o default -o nospace -F _git g 2>/dev/null \ || complete -o default -o nospace -F _git g

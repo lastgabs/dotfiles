@@ -1,0 +1,84 @@
+
+##########
+# PROMPT #
+##########
+
+autoload -Uz vcs_info
+precmd_functions+=( vcs_info )
+setopt prompt_subst
+
+zstyle ':vcs_info:git:*' check-for-changes true
+zstyle ':vcs_info:*' unstagedstr '*'
+zstyle ':vcs_info:*' stagedstr '+'
+zstyle ':vcs_info:git:*' formats '%F{200}[%b%u%c]%f'
+zstyle ':vcs_info:*' enable git
+
+# Sets prompt with AM/PM clock, 2-level directory, git status
+PROMPT='%F{242}%t %F{69}%B%2~ %b%F{203} $vcs_info_msg_0_ 🍬 '
+
+#################
+# OTHER CONFIGS #
+#################
+
+# Load Mac-specific configurations
+if [ $(uname) = "Darwin" ]; then . ~/.dotfiles/mac.sh ; fi
+
+# History settings
+HISTSIZE=1000000
+SAVEHIST=1000000
+setopt INC_APPEND_HISTORY_TIME
+setopt HIST_IGNORE_SPACE
+
+# Make sure less can be scrollable
+export LESS=-R
+
+# Makes globbing case insensitive
+setopt nocaseglob
+
+# case insensitive path-completion
+zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
+
+###########
+# ALIASES #
+###########
+
+# Random
+alias cp='cp -i'
+alias g='git'
+alias hist='history -E'
+alias ls='ls -AG'
+alias ll='ls -lAGh'
+alias mv='mv -i'
+alias rs='rsync -vrL --partial --progress'
+alias reload='source ~/.zshrc'
+
+# Git
+alias personal='git config --local user.email lastgabs@users.noreply.github.com'
+alias shopify='git config --local user.email gabriela.stefanini@shopify.com'
+
+# Ruby
+alias b="bundle"
+alias bi="b install"
+alias bu="b update"
+alias be="b exec"
+alias rbtest='bundle exec ruby -w -Itest'
+alias rstest='bundle exec ruby -Ilib:test -w'
+
+# Rails
+alias rc='rails console'
+alias rr='rails routes'
+alias rs='rails server'
+alias rt='rails test'
+
+# Jekyll
+alias js='bundle exec jekyll serve'
+
+# Rubocop
+alias r='rubocop'
+alias ra='rubocop -a'
+alias rao='rubocop -a --only'
+
+# Kubernetes
+alias tier="kubectl config use-context $1"
+alias kc="kubecli exec-pod $1 $2 $3"
+
